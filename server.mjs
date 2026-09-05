@@ -147,7 +147,8 @@ const server = createServer(async (req, res) => {
                contents: `Extract up to 5 key concepts from this text. Return JSON: {"concepts": ["..."]}. Text: ${textContent.substring(0, 5000)}`,
                config: { responseMimeType: "application/json" }
              });
-             const parsed = JSON.parse(aiResp.text);
+             const cleanText = aiResp.text.replace(/```json/g, '').replace(/```/g, '').trim();
+             const parsed = JSON.parse(cleanText);
              extractedConcepts = parsed.concepts || extractedConcepts;
            }
         } catch (err) {
@@ -204,7 +205,8 @@ Make sure to include at least one 'question' step. Return ONLY valid JSON.`;
              contents: prompt,
              config: { responseMimeType: "application/json" }
           });
-          lessonData = JSON.parse(aiResp.text);
+          const cleanText = aiResp.text.replace(/```json/g, '').replace(/```/g, '').trim();
+          lessonData = JSON.parse(cleanText);
         } catch(e) { console.error("Gemini Lesson error:", e); }
       }
 
@@ -244,6 +246,29 @@ Make sure to include at least one 'question' step. Return ONLY valid JSON.`;
       const recentLessons = db.prepare('SELECT id, title, topic, createdAt FROM lessons WHERE userId = ? ORDER BY createdAt DESC LIMIT 5').all(userId)
       return send(res, 200, { lessonCount, avgScore, recentLessons })
     }
+
+    if (req.method === 'GET' && url.pathname === '/api/notes') {
+      if (!userId) return send(res, 401, { error: 'Unauthorized' })
+      const recentLessons = db.prepare('SELECT id, title, topic, lessonData FROM lessons WHERE userId = ? ORDER BY createdAt DESC LIMIT 5').all(userId)
+      
+      const notes = recentLessons.map(lesson => {
+        let body = ''
+        try {
+          const data = JSON.parse(lesson.lessonData)
+          // Extract the scripts or explanations from the steps to form a summary note
+          body = data.steps
+            .filter(s => s.type === 'explain' || s.type === 'demonstrate')
+            .map(s => s.script)
+            .join(' ')
+            .substring(0, 500) + '...'
+        } catch (e) {
+          body = 'No summary available.'
+        }
+        return { id: lesson.id, title: lesson.title || lesson.topic, body }
+      })
+      
+      return send(res, 200, { notes })
+    }
     
     if (req.method === 'POST' && url.pathname === '/api/answers') {
       const { answer = '', correct = '', misconception = '', alternative = '' } = await bodyOf(req);
@@ -265,7 +290,8 @@ Return JSON:
                contents: prompt,
                config: { responseMimeType: "application/json" }
            });
-           result = JSON.parse(aiResp.text);
+           const cleanText = aiResp.text.replace(/```json/g, '').replace(/```/g, '').trim();
+           result = JSON.parse(cleanText);
          } catch(e) { console.error("Gemini Answer error:", e); }
       }
 
@@ -303,7 +329,8 @@ Grade the answers based on the context. Return a JSON object with:
                contents: prompt,
                config: { responseMimeType: "application/json" }
            });
-           const result = JSON.parse(aiResp.text);
+           const cleanText = aiResp.text.replace(/```json/g, '').replace(/```/g, '').trim();
+           const result = JSON.parse(cleanText);
            score = result.score || 0;
            recommendation = result.recommendation || 'Keep practicing.';
          } catch(e) { console.error("Gemini Assessment error:", e); }

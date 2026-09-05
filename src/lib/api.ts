@@ -21,8 +21,8 @@ export function login(credentials: any) { return request<{token: string, user: a
 export function register(credentials: any) { return request<{token: string, user: any}>('/auth/register', credentials) }
 export function getMe() { return request<{user: any}>('/auth/me') }
 
-// Dashboards
 export function getDashboard() { return request<any>('/dashboard') }
+export function getNotes() { return request<{ notes: any[] }>('/notes') }
 export function getMaterials() { return request<any[]>('/materials') }
 
 export function createMaterial(name: string, content?: string) { const extension = name.split('.').pop()?.toLowerCase(); return request<{ id: string, extractedConcepts: string[] }>('/materials', { name, content, type: extension === 'ppt' || extension === 'pptx' ? 'pptx' : extension === 'doc' || extension === 'docx' ? 'docx' : 'pdf' }) }

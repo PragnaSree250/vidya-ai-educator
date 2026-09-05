@@ -16,11 +16,21 @@ export function TeacherStage({
       <div className="flex items-center gap-4">
         <div className="relative">
           <div
-            className={`grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-brand-500 to-teal-500 text-2xl font-display ${
-              speaking ? 'ring-4 ring-sun-400/70' : 'ring-4 ring-white/10'
+            className={`overflow-hidden h-24 w-24 rounded-full bg-slate-900 border-4 ${
+              speaking ? 'border-sun-400/70' : 'border-white/10'
             }`}
           >
-            {name[0]}
+            {speaking ? (
+               <video 
+                  src="https://assets.mixkit.co/videos/preview/mixkit-young-woman-talking-on-video-call-40150-large.mp4" 
+                  autoPlay loop muted playsInline 
+                  className="h-full w-full object-cover" 
+               />
+            ) : (
+               <div className="h-full w-full grid place-items-center bg-gradient-to-br from-brand-500 to-teal-500 text-3xl font-display">
+                  {name[0]}
+               </div>
+            )}
           </div>
           {speaking && (
             <span className="absolute -bottom-1 left-1/2 flex -translate-x-1/2 gap-0.5">
