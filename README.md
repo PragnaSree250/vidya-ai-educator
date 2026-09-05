@@ -1,77 +1,93 @@
-# Vidya — AI Educator (frontend prototype)
+<div align="center">
+  
+# 🎓 Vidya: The AI Educator
+**An Adaptive, Personalized AI Learning Platform**
 
-Human-like AI teacher UI for the AI Innovation Hackathon challenge: upload material or a topic, review a lesson plan, sit in a video classroom, answer check-ins, take an assessment, and read a learning report.
+[![React](https://img.shields.io/badge/React-18.x-blue?style=flat-square&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-green?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![Google Gemini](https://img.shields.io/badge/AI-Google_Gemini_1.5_Flash-orange?style=flat-square&logo=google)](https://deepmind.google/technologies/gemini/)
 
-This repository is **frontend only**. Lesson plans, avatar/voice, RAG, scores, and auth are **mocked**. No backend, payments, or live APIs.
+</div>
 
-## Requirements from the brief (mapped to screens)
+---
 
-| Requirement | Where in the UI |
-| --- | --- |
-| Upload books / PDF / notes / PPT | `/app/learn`, `/app/library` |
-| Topic-based teaching | `/app/learn` (topic mode) |
-| AI lesson structure | `/app/plan/:id` |
-| Personalisation (level, time, language, style) | Onboarding, learn wizard, settings |
-| Human-like loop (explain → question → adapt) | `/app/classroom/:id` |
-| Video + avatar + voice (simulated) | Classroom stage |
-| Subject-aware visuals | Whiteboard (circuit, formula, graph, code, timeline, biology) |
-| Multilingual (incl. Hindi ↔ English) | Language switch in classroom |
-| Assessment + report | `/app/assess/:id`, `/app/report/:id` |
-| Learning profile & path | `/app/progress`, `/app/path` |
-| Advanced extras | Teachers, flashcards, notes, 7-day revision planner |
+## 🚀 The Vision
 
-## Run locally
+Traditional e-learning platforms rely on static, one-size-fits-all pre-recorded videos. This leads to massive dropout rates because static content cannot adapt to a student's individual pacing, knowledge level, or time constraints.
 
-You need **Node.js 18+** (Node 20.16 is fine) and npm.
+**Vidya solves this.** Vidya acts as a 1-on-1 private tutor available 24/7. It uses the power of Google Gemini AI to dynamically generate structured, personalized lessons on the fly based on your exact learning objectives. 
 
+---
+
+## ✨ Key Features
+
+### 📄 Intelligent Material Ingestion
+Upload any textbook, slide deck (PPTX), or lecture notes (PDF/DOCX). Vidya extracts the core concepts and builds a curriculum tailored directly to your course material.
+
+### 🧠 Dynamic Lesson Generation
+No two lessons are the same. Vidya creates a step-by-step lesson plan customized to your specified time budget:
+- **5 Minutes:** A rapid, concise crash course.
+- **20 Minutes:** A standard, structured lesson.
+- **60 Minutes:** A deep dive with extensive examples.
+
+### 👩‍🏫 Personalized AI Teacher Avatars
+Choose your teacher persona. Whether you want a teacher who uses the Socratic method (asking you questions), simple analogies, or strict exam preparation, Vidya adapts. Includes realistic video avatars for an immersive learning environment.
+
+### 📝 Adaptive Assessments & Automatic Notes
+At the end of a lesson, Vidya tests your understanding. It doesn't just grade multiple choice; it uses AI to analyze your free-text answers, detect specific misconceptions, and provide targeted feedback. Vidya also automatically extracts the core concepts you just learned and generates beautiful study notes and interactive flashcards.
+
+### 🌍 Multi-Lingual Support
+Learn in English, Hindi, or Spanish. The platform adapts the curriculum language instantly, breaking down language barriers in education.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Frontend:** React, Vite, TypeScript, Tailwind CSS, Lucide Icons
+- **Backend:** Node.js, Express (Native HTTP)
+- **Database:** SQLite (via `better-sqlite3`)
+- **Artificial Intelligence:** Google Gemini 1.5 Flash API (`@google/genai`)
+- **Authentication:** JSON Web Tokens (JWT) & bcryptjs
+- **Deployment:** Render
+
+---
+
+## ⚙️ Running Locally
+
+Follow these steps to run Vidya on your local machine:
+
+### 1. Clone the repository
 ```bash
-cd "C:\Users\Pragna Sree\Desktop\ai educator"
+git clone https://github.com/PragnaSree250/vidya-ai-educator.git
+cd vidya-ai-educator
+```
+
+### 2. Install dependencies
+```bash
 npm install
+```
+
+### 3. Configure Environment Variables
+Create a `.env.local` file in the root directory and add your Google Gemini API key:
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+JWT_SECRET=any_random_secret_string
+```
+
+### 4. Start the Application
+Since the frontend and backend are tightly integrated for this prototype, you can start everything with a single command:
+```bash
 npm run dev
 ```
 
-Open the URL Vite prints (usually `http://localhost:5173`).
+### 5. Access the Platform
+- **Frontend App:** [http://localhost:5173](http://localhost:5173)
+- **Backend API:** [http://localhost:8787](http://localhost:8787)
 
-Other scripts:
+---
 
-```bash
-npm run build    # production build into dist/
-npm run preview  # preview the production build
-```
-
-## Project structure
-
-```
-ai educator/
-  ai educator.pdf          # original problem statement
-  index.html
-  package.json
-  src/
-    main.tsx              # entry
-    App.tsx               # routes
-    index.css             # design tokens via Tailwind
-    types.ts
-    context/SessionContext.tsx   # mock learner session
-    data/mock.ts          # sample lessons, quiz, path, materials
-    components/
-      ui/                 # Button, Card, Field, Badge, alerts, empty states
-      layout/             # marketing nav + app shell
-      classroom/          # avatar stage + subject whiteboard
-    pages/                # one file per screen
-```
-
-Swap `src/data/mock.ts` for API calls later without rewriting the screens.
-
-## Demo path (for a video)
-
-1. Landing → Sign in (any password) → Dashboard  
-2. Start lesson → upload a PDF (or pick a topic) → generate plan  
-3. Classroom: play/pause, Hindi/English, answer the Ohm’s law question **wrong** to see misconception + new analogy  
-4. Assessment → learning report (80%, weak: Resistance / Ohm’s Law)  
-5. Learning path, flashcards, revision week
-
-## Known limitations
-
-- Avatar/voice/video are UI simulations, not generated media.
-- File “parsing” is a timeout plus sample NCERT concepts.
-- Auth is in-memory; refresh loses login state.
+<div align="center">
+  <i>Built with ❤️ for the future of education.</i>
+</div>
