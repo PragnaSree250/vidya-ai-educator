@@ -56,22 +56,7 @@ Learn in English, Hindi, or Spanish. The platform adapts the curriculum language
 
 ## ⚙️ Setup & Testing
 
-The fastest way to experience Vidya is via the [Live Demo](https://vidya-ai-educator.onrender.com/). 
-
-If you are a judge or developer who wishes to deploy a private instance of this repository, it is incredibly simple. This project is optimized for deployment on **Render** as a Web Service.
-
-### Deployment Instructions
-
-1. **Fork/Clone** this GitHub repository.
-2. Connect your repository to **Render** and create a new **Web Service**.
-3. Set the **Build Command** to: `npm install; npm run build`
-4. Set the **Start Command** to: `npm run start`
-5. Navigate to the **Environment** tab in your Render dashboard and add your keys securely:
-   - `GEMINI_API_KEY` = `(Your Google Gemini API Key)`
-   - `JWT_SECRET` = `(Any random text for encryption)`
-6. Click **Deploy**. Render will automatically inject the keys and spin up your private educational platform!
-
----
+The fastest way to experience Vidya is via our live deployment. You do not need to install anything or configure API keys to test the platform.
 
 ### 🌐 Access the Platform
 - **Live Demo:** [https://vidya-ai-educator.onrender.com/](https://vidya-ai-educator.onrender.com/)
