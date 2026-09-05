@@ -321,6 +321,36 @@ Grade the answers based on the context. Return a JSON object with:
       return send(res, 200, { score, recommendation });
     }
     
+    // If not an /api route, serve static files for the frontend
+    if (!url.pathname.startsWith('/api')) {
+      // Basic static file server for deployment (assuming frontend is built to /dist)
+      const distPath = join(root, 'dist')
+      const extMap: Record<string, string> = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.svg': 'image/svg+xml'
+      }
+      
+      let filePath = join(distPath, url.pathname)
+      if (url.pathname === '/') filePath = join(distPath, 'index.html')
+      
+      if (!existsSync(filePath) || !url.pathname.includes('.')) {
+         // React router fallback
+         filePath = join(distPath, 'index.html')
+      }
+      
+      if (existsSync(filePath)) {
+        const ext = '.' + filePath.split('.').pop()
+        res.writeHead(200, { 'Content-Type': extMap[ext] || 'text/plain' })
+        res.end(readFileSync(filePath))
+        return
+      }
+    }
+    
     return send(res, 404, { error: 'Route not found.' })
   } catch (error) { return send(res, 500, { error: error instanceof Error ? error.message : 'Server error.' }) }
 })
