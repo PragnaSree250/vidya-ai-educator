@@ -54,50 +54,26 @@ Learn in English, Hindi, or Spanish. The platform adapts the curriculum language
 
 ---
 
-## ⚙️ Running Locally
+## ⚙️ Setup & Testing
 
-Follow these steps to run Vidya on your local machine:
+The fastest way to experience Vidya is via the [Live Demo](https://vidya-ai-educator.onrender.com/). 
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/PragnaSree250/vidya-ai-educator.git
-cd vidya-ai-educator
-```
+If you are a judge or developer who wishes to deploy a private instance of this repository, it is incredibly simple. This project is optimized for deployment on **Render** as a Web Service.
 
-### 2. Install dependencies
-```bash
-npm install
-```
+### Deployment Instructions
 
-### 3. Configure Environment Variables
-Create a `.env.local` file in the root directory and add your Google Gemini API key:
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-JWT_SECRET=any_random_secret_string
-```
-
-### 4. Start the Application
-Since the frontend and backend are tightly integrated for this prototype, you can start everything with a single command:
-```bash
-npm run dev
-```
+1. **Fork/Clone** this GitHub repository.
+2. Connect your repository to **Render** and create a new **Web Service**.
+3. Set the **Build Command** to: `npm install; npm run build`
+4. Set the **Start Command** to: `npm run start`
+5. Navigate to the **Environment** tab in your Render dashboard and add your keys securely:
+   - `GEMINI_API_KEY` = `(Your Google Gemini API Key)`
+   - `JWT_SECRET` = `(Any random text for encryption)`
+6. Click **Deploy**. Render will automatically inject the keys and spin up your private educational platform!
 
 ---
 
-## ☁️ Deploying to Production (Render)
-
-If you are deploying this repository to a cloud provider like Render, you do **not** need a `.env.local` file. Instead:
-
-1. Connect your GitHub repository to Render as a **Web Service**.
-2. Go to the **Environment** tab in your Render dashboard.
-3. Click **Add Environment Variable** and add your keys securely:
-   - `GEMINI_API_KEY` = `your_google_gemini_api_key`
-   - `JWT_SECRET` = `your_random_secret_string`
-4. Render will automatically inject these keys when the server starts.
-
----
-
-### 5. Access the Platform
+### 🌐 Access the Platform
 - **Live Demo:** [https://vidya-ai-educator.onrender.com/](https://vidya-ai-educator.onrender.com/)
 
 ---
