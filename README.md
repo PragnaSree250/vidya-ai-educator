@@ -82,6 +82,21 @@ Since the frontend and backend are tightly integrated for this prototype, you ca
 npm run dev
 ```
 
+---
+
+## ☁️ Deploying to Production (Render)
+
+If you are deploying this repository to a cloud provider like Render, you do **not** need a `.env.local` file. Instead:
+
+1. Connect your GitHub repository to Render as a **Web Service**.
+2. Go to the **Environment** tab in your Render dashboard.
+3. Click **Add Environment Variable** and add your keys securely:
+   - `GEMINI_API_KEY` = `your_google_gemini_api_key`
+   - `JWT_SECRET` = `your_random_secret_string`
+4. Render will automatically inject these keys when the server starts.
+
+---
+
 ### 5. Access the Platform
 - **Live Demo:** [https://vidya-ai-educator.onrender.com/](https://vidya-ai-educator.onrender.com/)
 
