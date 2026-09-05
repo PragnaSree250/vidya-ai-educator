@@ -2,9 +2,14 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/Button'
 import { Field, Select, Textarea } from '../components/ui/Field'
-import { languages } from '../data/mock'
 import { useSession } from '../context/SessionContext'
 import type { LanguageCode, Level, TeachingStyle, TimeBudget } from '../types'
+
+const languages = [
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'es', label: 'Spanish' },
+]
 
 export function OnboardingPage() {
   const { profile, setProfile } = useSession()
@@ -62,7 +67,7 @@ export function OnboardingPage() {
               value={profile.language}
               onChange={(e) => setProfile({ ...profile, language: e.target.value as LanguageCode })}
             >
-              {languages.map((l) => (
+              {languages.map((l: { code: string, label: string }) => (
                 <option key={l.code} value={l.code}>
                   {l.label}
                 </option>

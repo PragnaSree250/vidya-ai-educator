@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Card } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { Field, Textarea } from '../components/ui/Field'
-import { Alert, Spinner } from '../components/ui/Feedback'
+import { Alert } from '../components/ui/Feedback'
 import { submitAssessment } from '../lib/api'
 
 const dynamicQuestions = [

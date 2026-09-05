@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button'
 import { Badge } from '../components/ui/Badge'
 import { ProgressBar } from '../components/ui/ProgressBar'
 import { useSession } from '../context/SessionContext'
-import { ArrowRight, Clock, Languages, Sparkles } from 'lucide-react'
+import { Clock, Languages, Sparkles } from 'lucide-react'
 import { getDashboard } from '../lib/api'
 import { Spinner, Alert } from '../components/ui/Feedback'
 

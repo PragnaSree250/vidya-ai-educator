@@ -4,9 +4,14 @@ import { teachers } from '../data/mock'
 
 const defaultProfile: LearnerProfile = {
   name: '',
+  role: 'student',
   level: 'beginner',
   language: 'en',
   timeBudget: '20m',
+  priorKnowledge: '',
+  objective: '',
+  style: 'simple',
+  depth: 'standard',
 }
 
 type Session = {

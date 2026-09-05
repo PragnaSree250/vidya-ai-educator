@@ -4,13 +4,23 @@ import { Card } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { Field, Input, Select, Textarea } from '../components/ui/Field'
 import { Alert, Spinner } from '../components/ui/Feedback'
-import { Badge } from '../components/ui/Badge'
-import { materials, topicSuggestions } from '../data/mock'
-import { languages } from '../data/mock'
 import { useSession } from '../context/SessionContext'
 import type { TimeBudget } from '../types'
 import { FileUp } from 'lucide-react'
 import { createLesson, createMaterial } from '../lib/api'
+
+const topicSuggestions = [
+  'Explain Ohm’s Law simply',
+  'How do vaccines work?',
+  'Teach me the basics of Python',
+  'What is Photosynthesis?',
+]
+
+const languages = [
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'es', label: 'Spanish' },
+]
 
 export function LearnPage() {
   const nav = useNavigate()
@@ -61,7 +71,7 @@ export function LearnPage() {
     setGenerating(true)
     setError('')
     try {
-      const lesson = await createLesson(mode === 'topic' ? topic : materials[0].chapters[0], profile, materialId)
+      const lesson = await createLesson(mode === 'topic' ? topic : 'Extracted Material Topic', profile, materialId)
       nav('/app/plan/' + lesson.id)
     } catch {
       setError('Start the local lesson server with npm run server, then generate the plan again.')
@@ -127,7 +137,7 @@ export function LearnPage() {
             <Textarea value={topic} onChange={(e) => setTopic(e.target.value)} />
           </Field>
           <div className="mt-3 flex flex-wrap gap-2">
-            {topicSuggestions.map((t) => (
+            {topicSuggestions.map((t: string) => (
               <button
                 key={t}
                 type="button"
@@ -160,7 +170,7 @@ export function LearnPage() {
               value={profile.language}
               onChange={(e) => setProfile({ ...profile, language: e.target.value as typeof profile.language })}
             >
-              {languages.map((l) => (
+              {languages.map((l: { code: string, label: string }) => (
                 <option key={l.code} value={l.code}>
                   {l.label}
                 </option>

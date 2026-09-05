@@ -5,8 +5,13 @@ import { Card } from '../components/ui/Card'
 import { Field, Input, Select } from '../components/ui/Field'
 import { Button } from '../components/ui/Button'
 import { Alert } from '../components/ui/Feedback'
-import { languages } from '../data/mock'
 import type { Level } from '../types'
+
+const languages = [
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'Hindi' },
+  { code: 'es', label: 'Spanish' },
+]
 
 export function SettingsPage() {
   const { profile, setProfile, logout } = useSession()
@@ -45,7 +50,7 @@ export function SettingsPage() {
             value={profile.language}
             onChange={(e) => setProfile({ ...profile, language: e.target.value as typeof profile.language })}
           >
-            {languages.map((l) => (
+            {languages.map((l: { code: string, label: string }) => (
               <option key={l.code} value={l.code}>
                 {l.label}
               </option>
