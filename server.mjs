@@ -325,7 +325,7 @@ Grade the answers based on the context. Return a JSON object with:
     if (!url.pathname.startsWith('/api')) {
       // Basic static file server for deployment (assuming frontend is built to /dist)
       const distPath = join(root, 'dist')
-      const extMap: Record<string, string> = {
+      const extMap = {
         '.html': 'text/html',
         '.js': 'text/javascript',
         '.css': 'text/css',
