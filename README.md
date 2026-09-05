@@ -88,5 +88,5 @@ npm run dev
 ---
 
 <div align="center">
-  <i>Built with ❤️ for the future of education.</i>
+  <i>Built for the future of education.</i>
 </div>
