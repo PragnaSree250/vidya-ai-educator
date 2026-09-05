@@ -83,8 +83,7 @@ npm run dev
 ```
 
 ### 5. Access the Platform
-- **Frontend App:** [http://localhost:5173](http://localhost:5173)
-- **Backend API:** [http://localhost:8787](http://localhost:8787)
+- **Live Demo:** [https://vidya-ai-educator.onrender.com/](https://vidya-ai-educator.onrender.com/)
 
 ---
 
